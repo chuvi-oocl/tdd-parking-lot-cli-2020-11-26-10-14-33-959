@@ -11,9 +11,9 @@ public class ParkingLot {
         this.parkingCar = new HashMap<>();
     }
 
-    public Ticket park(Car car) {
+    public Ticket park(Car car) throws NotEnoughPositionException {
         if (parkingCar.size() >= capacity) {
-            return null;
+            throw new NotEnoughPositionException("Not Enough Position");
         }
         Ticket ticket = new Ticket();
         parkingCar.put(ticket, car);
