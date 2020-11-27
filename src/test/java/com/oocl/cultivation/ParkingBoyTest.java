@@ -73,6 +73,7 @@ class ParkingBoyTest {
         assertNotNull(ticket2);
         assertNotNull(ticket3);
     }
+
     @Test
     void should_return_null_given_parking_ticket_parking_lot_that_not_parked_the_car() {
         //given
@@ -82,5 +83,18 @@ class ParkingBoyTest {
         final Car car = parkingLot.fetch(ticket);
         //then
         assertNull(car);
+    }
+
+    @Test
+    void should_return_null_when_fetch_car_given_parking_ticket_used() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car();
+        final Ticket ticket = parkingLot.park(car);
+        parkingLot.fetch(ticket);
+        //when
+        final Car actual = parkingLot.fetch(ticket);
+        //then
+        assertNull(actual);
     }
 }
