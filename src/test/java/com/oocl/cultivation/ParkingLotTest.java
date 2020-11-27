@@ -98,4 +98,13 @@ class ParkingLotTest {
         //then
         assertNull(actual);
     }
+
+    @Test
+    void should_throw_NotEnoughPositionException_when_park_multiple_car_parking_lot_not_enough_capacity() throws NotEnoughPositionException {
+        ParkingLot parkingLot = new ParkingLot(1);
+        parkingLot.park(new Car());
+        final NotEnoughPositionException notEnoughPositionException = assertThrows(NotEnoughPositionException.class, () -> parkingLot.park(new Car()));
+        assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
+
+    }
 }
