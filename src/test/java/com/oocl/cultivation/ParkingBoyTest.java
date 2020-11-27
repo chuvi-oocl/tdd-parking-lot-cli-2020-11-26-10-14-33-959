@@ -3,8 +3,7 @@ package com.oocl.cultivation;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
@@ -20,8 +19,9 @@ class ParkingBoyTest {
         //then
         verify(parkingLot, times(1)).park(car);
     }
+
     @Test
-    void should_return_a_parking_ticket_when_park_the_car_given_a_car_and_parking_lot(){
+    void should_return_a_parking_ticket_when_park_the_car_given_a_car_and_parking_lot() {
         //given
         Car car = new Car();
         ParkingLot parkingLot = new ParkingLot(1);
@@ -30,8 +30,9 @@ class ParkingBoyTest {
         //then
         assertNotNull(ticket);
     }
+
     @Test
-    void should_only_one_car_parked_when_park_multiple_cars_given_parking_lot_with_1_capacity(){
+    void should_only_one_car_parked_when_park_multiple_cars_given_parking_lot_with_1_capacity() {
         //given
         Car car1 = new Car();
         Car car2 = new Car();
@@ -42,5 +43,17 @@ class ParkingBoyTest {
         //then
         assertNotNull(ticket1);
         assertNull(ticket2);
+    }
+
+    @Test
+    void should_return_car_when_fetch_car_given_parking_ticket_parking_lot_that_parked_the_car() {
+        //given
+        ParkingLot parkingLot = new ParkingLot(1);
+        Car car = new Car();
+        final Ticket ticket = parkingLot.park(car);
+        //when
+        final Car actual = parkingLot.fetch(ticket);
+        //then
+        assertEquals(car, actual);
     }
 }
