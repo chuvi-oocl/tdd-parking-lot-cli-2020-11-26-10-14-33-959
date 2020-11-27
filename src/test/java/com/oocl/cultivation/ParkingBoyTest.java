@@ -56,4 +56,21 @@ class ParkingBoyTest {
         //then
         assertEquals(car, actual);
     }
+
+    @Test
+    void should_park_multiple_cars_when_park_multiple_cars_given_parking_lot_with_multiple_capacity() {
+        //given
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Car car3 = new Car();
+        ParkingLot parkingLot = new ParkingLot(3);
+        //when
+        final Ticket ticket1 = parkingLot.park(car1);
+        final Ticket ticket2 = parkingLot.park(car2);
+        final Ticket ticket3 = parkingLot.park(car3);
+        //then
+        assertNotNull(ticket1);
+        assertNotNull(ticket2);
+        assertNotNull(ticket3);
+    }
 }
