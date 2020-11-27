@@ -89,15 +89,17 @@ class ParkingLotTest {
     }
 
     @Test
-    void should_return_null_when_fetch_car_given_parking_ticket_used() throws NotEnoughPositionException {
+    void should_return_null_when_fetch_car_given_parking_ticket_used() throws NotEnoughPositionException{
         //given
         ParkingLot parkingLot = new ParkingLot(1);
         Car car = new Car();
         final Ticket ticket = parkingLot.park(car);
         parkingLot.fetch(ticket);
         //when
-        final Car actual = parkingLot.fetch(ticket);
+        final UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class,
+                () -> parkingLot.fetch(ticket)
+        );
         //then
-        assertNull(actual);
+        assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
     }
 }
