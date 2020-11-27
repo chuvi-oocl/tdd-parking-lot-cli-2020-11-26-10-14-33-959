@@ -1,5 +1,7 @@
 package com.oocl.cultivation;
 
+import com.oocl.parkingLotException.NotEnoughPositionException;
+import com.oocl.parkingLotException.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 

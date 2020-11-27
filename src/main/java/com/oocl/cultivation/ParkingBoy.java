@@ -1,5 +1,8 @@
 package com.oocl.cultivation;
 
+import com.oocl.parkingLotException.NotEnoughPositionException;
+import com.oocl.parkingLotException.UnrecognizedTicketException;
+
 public class ParkingBoy {
     private ParkingLot parkingLot;
 
