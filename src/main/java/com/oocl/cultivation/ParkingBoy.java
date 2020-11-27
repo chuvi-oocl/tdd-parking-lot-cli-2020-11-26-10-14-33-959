@@ -11,7 +11,7 @@ public class ParkingBoy {
         return this.parkingLot.park(car);
     }
 
-    public Car fetch(Ticket ticket) {
+    public Car fetch(Ticket ticket) throws UnrecognizedTicketException {
         return this.parkingLot.fetch(ticket);
     }
 }
