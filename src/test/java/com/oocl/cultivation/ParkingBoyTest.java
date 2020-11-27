@@ -20,6 +20,7 @@ class ParkingBoyTest {
         verify(parkingLot, times(1)).park(car);
     }
 
+
     @Test
     void should_return_a_parking_ticket_when_park_the_car_given_a_car_and_parking_lot() {
         //given
@@ -96,5 +97,17 @@ class ParkingBoyTest {
         final Car actual = parkingLot.fetch(ticket);
         //then
         assertNull(actual);
+    }
+
+    @Test
+    void should_return_a_parking_ticket_when_a_parking_boy_park_the_car_given_a_car_and_parking_lot() {
+        //given
+        ParkingLot parkingLot = Mockito.mock(ParkingLot.class);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
+        Car car = new Car();
+        //when
+        final Ticket actual = parkingBoy.park(car);
+        //then
+        assertNotNull(actual);
     }
 }
