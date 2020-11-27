@@ -20,7 +20,7 @@ class ParkingBoyTest {
         verify(parkingLot, times(1)).park(car);
     }
     @Test
-    void should_parking_boy_call_parking_lot_fetch_function_once_when_park_the_car_given_call_parking_boy_fetch_function() {
+    void should_parking_boy_call_parking_lot_fetch_function_once_when_park_the_car_given_call_parking_boy_fetch_function() throws UnrecognizedTicketException {
         //given
         ParkingLot parkingLot = Mockito.mock(ParkingLot.class);
         ParkingBoy parkingBoy = new ParkingBoy(parkingLot);
