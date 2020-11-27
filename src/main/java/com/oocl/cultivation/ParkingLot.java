@@ -1,7 +1,6 @@
 package com.oocl.cultivation;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
 public class ParkingLot {
