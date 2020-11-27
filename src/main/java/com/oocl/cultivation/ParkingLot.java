@@ -1,8 +1,6 @@
 package com.oocl.cultivation;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class ParkingLot {
     private final int capacity;
