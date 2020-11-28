@@ -30,7 +30,7 @@ public class ParkingBoy {
         throw new NotEnoughPositionException("Not Enough Position");
     }
 
-    public Car fetch(Ticket ticket) throws UnrecognizedTicketException {
+    public Car fetch(Ticket ticket) {
         for (ParkingLot parkingLot : this.parkingLots) {
             try {
                 return parkingLot.fetch(ticket);
