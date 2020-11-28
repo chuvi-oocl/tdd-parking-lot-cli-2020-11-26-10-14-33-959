@@ -86,4 +86,21 @@ public class SuperSmartParkingBoyTest {
     }
 
     //Skipped checking if fetching from which parking lot, as checked where the car parked
+
+    @Test
+    void should_return_car_when_fetch_car_given_multiple_parking_lots_with_parked_in_not_first_lot() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        ParkingLot secondParkingLot = new ParkingLot(1);
+        parkingLots.add(secondParkingLot);
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+        Car car = new Car();
+        superSmartParkingBoy.park(new Car());
+        final Ticket ticket = superSmartParkingBoy.park(car);
+        //when
+        Car actual = superSmartParkingBoy.fetch(ticket);
+        //then
+        assertEquals(car, actual);
+    }
 }
