@@ -31,7 +31,6 @@ public class SmartParkingBoyTest {
     }
 
     //Skipped test, same as standard parking boy
-    //- parking multiple cars with not enough space
     //- parking in first lot
 
     @Test
