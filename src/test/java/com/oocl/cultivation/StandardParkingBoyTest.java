@@ -64,4 +64,20 @@ class StandardParkingBoyTest {
         //then
         verify(firstParkingLot, times(1)).park(car);
     }
+    @Test
+    void should_call_2nd_parking_lot_parked_function_when_park_1_car_given_multiple_parking_lots_with_1st_parking_lot_full_in_capacity_and_2nd_parking_lot_have_free_capacity() throws NotEnoughPositionException {
+        //given
+        List<ParkingLot> parkingLots= new ArrayList<>();
+        ParkingLot secondParkingLot = Mockito.mock(ParkingLot.class);
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(secondParkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car1 = new Car();
+        Car car2 = new Car();
+        parkingBoy.park(car1);
+        //when
+        parkingBoy.park(car2);
+        //then
+        verify(secondParkingLot, times(1)).park(car2);
+    }
 }
