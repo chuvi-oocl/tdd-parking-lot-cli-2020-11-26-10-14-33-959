@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SuperSmartParkingBoyTest {
 
@@ -58,5 +57,31 @@ public class SuperSmartParkingBoyTest {
         final Car actual = secondParkingLot.fetch(ticket);
         //then
         assertEquals(car, actual);
+    }
+
+
+    @Test
+    void should_return_NotEnoughPositionException_function_park_car_given_multiple_parking_lots_with_no_free_space() throws NotEnoughPositionException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(new ParkingLot(1));
+
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Car car3 = new Car();
+        //when
+
+        final Ticket ticket1 = superSmartParkingBoy.park(car1);
+        final Ticket ticket2 = superSmartParkingBoy.park(car2);
+        final NotEnoughPositionException notEnoughPositionException = assertThrows(NotEnoughPositionException.class,
+                () -> superSmartParkingBoy.park(car3)
+        );
+        //then
+        assertNotNull(ticket1);
+        assertNotNull(ticket2);
+        assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
     }
 }
