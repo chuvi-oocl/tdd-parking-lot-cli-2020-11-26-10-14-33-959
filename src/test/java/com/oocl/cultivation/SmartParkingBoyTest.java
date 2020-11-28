@@ -11,11 +11,12 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
 public class SmartParkingBoyTest {
     @Test
     void should_parking_boy_park_car_in_multiple_parking_lots_when_park_multiple_cars_given_multiple_parking_lots_multiple_capacity() throws NotEnoughPositionException {
         //given
-        List<ParkingLot> parkingLots= new ArrayList<>();
+        List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(new ParkingLot(1));
         parkingLots.add(new ParkingLot(1));
         SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
@@ -27,5 +28,31 @@ public class SmartParkingBoyTest {
         //then
         assertNotNull(ticket1);
         assertNotNull(ticket2);
+    }
+
+    //Skipped test, same as standard parking boy
+    //- parking multiple cars with not enough space
+    //- parking in first lot
+
+    @Test
+    void should_parked_at_2nd_parking_lot_function_when_park_1_car_given_multiple_parking_lots_with_2nd_parking_lot_have_more_free_capacity() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(2)); //1st lot
+
+        ParkingLot secondParkingLot = new ParkingLot(2);
+        parkingLots.add(secondParkingLot);
+
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        Car car1 = new Car(); //parked in 1st lot
+        Car car2 = new Car();
+        smartParkingBoy.park(car1);
+
+        final Ticket ticket = smartParkingBoy.park(car2);
+        //when
+        final Car actual = secondParkingLot.fetch(ticket);
+        //then
+        assertEquals(car2, actual);
     }
 }
