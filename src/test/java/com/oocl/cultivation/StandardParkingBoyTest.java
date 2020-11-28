@@ -50,4 +50,18 @@ class StandardParkingBoyTest {
         assertNotNull(ticket2);
         assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
     }
+    @Test
+    void should_call_first_parking_lot_parked_function_when_park_1_car_given_multiple_parking_lots_with_1st_parking_lot_have_free_capacity() throws NotEnoughPositionException {
+        //given
+        List<ParkingLot> parkingLots= new ArrayList<>();
+        ParkingLot firstParkingLot = Mockito.mock(ParkingLot.class);
+        parkingLots.add(firstParkingLot);
+        parkingLots.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car();
+        //when
+        parkingBoy.park(car);
+        //then
+        verify(firstParkingLot, times(1)).park(car);
+    }
 }
