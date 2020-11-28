@@ -31,6 +31,12 @@ public class ParkingBoy {
     }
 
     public Car fetch(Ticket ticket) throws UnrecognizedTicketException {
-        return this.parkingLots.get(0).fetch(ticket);
+        for (ParkingLot parkingLot : this.parkingLots) {
+            try {
+                return parkingLot.fetch(ticket);
+            } catch (UnrecognizedTicketException ignored) {
+            }
+        }
+        return null;
     }
 }
