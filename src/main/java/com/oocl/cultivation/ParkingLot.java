@@ -35,4 +35,8 @@ public class ParkingLot {
     public int availableSpace() {
         return (capacity - parkingCar.size());
     }
+
+    public double getFreeSpaceRatio() {
+        return capacity == 0 ? 0 : ((float) (capacity - parkingCar.size()) / capacity);
+    }
 }
