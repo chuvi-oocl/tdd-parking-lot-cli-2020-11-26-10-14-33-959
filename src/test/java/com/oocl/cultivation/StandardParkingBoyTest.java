@@ -80,4 +80,18 @@ class StandardParkingBoyTest {
         //then
         verify(secondParkingLot, times(1)).park(car2);
     }
+    @Test
+    void should_return_car_when_fetch_car_given_multiple_parking_lots_with_parking_ticket_that_parked_the_car() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> parkingLots= new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car = new Car();
+        final Ticket ticket = parkingBoy.park(car);
+        //when
+        final Car actual = parkingBoy.fetch(ticket);
+        //then
+        assertEquals(car, actual);
+    }
 }
