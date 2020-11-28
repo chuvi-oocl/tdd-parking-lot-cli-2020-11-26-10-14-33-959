@@ -1,5 +1,6 @@
 package com.oocl.cultivation;
 
+import com.oocl.parkingLotException.NotEnoughPositionException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class ParkingManagerTest {
     @Test
-    void should_parking_manager_park_cars_in_multiple_parking_lots_when_park_cars_given_multiple_parking_lots_multiple_capacity_no_parking_boys() {
+    void should_parking_manager_park_cars_in_multiple_parking_lots_when_park_cars_given_multiple_parking_lots_multiple_capacity_no_parking_boys() throws NotEnoughPositionException {
         //given
         List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(new ParkingLot(1));
