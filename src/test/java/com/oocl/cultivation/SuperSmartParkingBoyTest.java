@@ -84,4 +84,6 @@ public class SuperSmartParkingBoyTest {
         assertNotNull(ticket2);
         assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
     }
+
+    //Skipped checking if fetching from which parking lot, as checked where the car parked
 }
