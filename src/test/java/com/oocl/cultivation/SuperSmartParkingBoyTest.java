@@ -1,11 +1,13 @@
 package com.oocl.cultivation;
 
 import com.oocl.parkingLotException.NotEnoughPositionException;
+import com.oocl.parkingLotException.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class SuperSmartParkingBoyTest {
@@ -29,4 +31,32 @@ public class SuperSmartParkingBoyTest {
 
     //Skipped test, same as standard parking boy
     //- parking in first lot
+
+
+    @Test
+    void should_parked_at_higher_free_ratio_parking_lot_function_when_park_1_car_given_multiple_parking_lots_with_1st_parking_lot_have_more_free_space_2nd_parking_lot_have_higher_free_ratio_in_capacity() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        //1st lot: 3/6, free space: 3, free ratio: 0.5
+        //2nd lot: 1/3, free space: 2, free ratio: 0.66
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        ParkingLot firstParkingLot = new ParkingLot(6);
+        parkingLots.add(firstParkingLot);
+        firstParkingLot.park(new Car());
+        firstParkingLot.park(new Car());
+        firstParkingLot.park(new Car());
+
+        ParkingLot secondParkingLot = new ParkingLot(3);
+        parkingLots.add(secondParkingLot);
+        secondParkingLot.park(new Car());
+
+        SuperSmartParkingBoy superSmartParkingBoy = new SuperSmartParkingBoy(parkingLots);
+
+        Car car = new Car();
+
+        //when
+        final Ticket ticket = superSmartParkingBoy.park(car);
+        final Car actual = secondParkingLot.fetch(ticket);
+        //then
+        assertEquals(car, actual);
+    }
 }
