@@ -51,4 +51,26 @@ public class ParkingManagerTest {
         //then
         assertEquals(car, actual);
     }
+
+    @Test
+    void should_call_non_first_parking_boy_park_function_when_park_car_given_manager_have_no_free_space_have_multiple_parking_boys_non_first_boy_have_free_space() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> managerParkingLots = new ArrayList<>();
+        List<ParkingLot> parkingBoyParkingLots = new ArrayList<>();
+        parkingBoyParkingLots.add(new ParkingLot(1));
+
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(new ParkingBoy(new ArrayList<>()));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingBoyParkingLots);
+        parkingBoys.add(parkingBoy);
+
+        ParkingManager parkingManager = new ParkingManager(managerParkingLots, parkingBoys);
+
+        Car car = new Car();
+        //when
+        final Ticket ticket = parkingManager.park(car);
+        Car actual = parkingBoy.fetch(ticket);
+        //then
+        assertEquals(car, actual);
+    }
 }
