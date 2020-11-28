@@ -55,4 +55,29 @@ public class SmartParkingBoyTest {
         //then
         assertEquals(car2, actual);
     }
+
+    @Test
+    void should_return_NotEnoughPositionException_function_park_car_given_multiple_parking_lots_with_no_free_space() throws NotEnoughPositionException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(new ParkingLot(1));
+
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Car car3 = new Car();
+        //when
+
+        final Ticket ticket1 = smartParkingBoy.park(car1);
+        final Ticket ticket2 = smartParkingBoy.park(car2);
+        final NotEnoughPositionException notEnoughPositionException = assertThrows(NotEnoughPositionException.class,
+                () -> smartParkingBoy.park(car3)
+        );
+        //then
+        assertNotNull(ticket1);
+        assertNotNull(ticket2);
+        assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
+    }
 }
