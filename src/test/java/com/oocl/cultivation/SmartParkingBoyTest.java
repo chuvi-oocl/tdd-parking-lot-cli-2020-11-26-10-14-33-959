@@ -114,4 +114,24 @@ public class SmartParkingBoyTest {
         //then
         assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
     }
+
+    @Test
+    void should_return_unrecognized_ticket_exception_when_fetch_car_given_multiple_parking_lots_parked_in_non_first_lot_with_used_ticket() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(2));
+        parkingLots.add(new ParkingLot(2));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        smartParkingBoy.park(new Car());
+        final Ticket ticket = smartParkingBoy.park(new Car());
+
+        smartParkingBoy.fetch(ticket);
+        //when
+        final UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class,
+                () -> smartParkingBoy.fetch(ticket)
+        );
+        //then
+        assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
+    }
 }
