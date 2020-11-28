@@ -3,14 +3,11 @@ package com.oocl.cultivation;
 import com.oocl.parkingLotException.NotEnoughPositionException;
 import com.oocl.parkingLotException.UnrecognizedTicketException;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 public class SmartParkingBoyTest {
     @Test
