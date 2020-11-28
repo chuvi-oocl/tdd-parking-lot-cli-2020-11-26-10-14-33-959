@@ -10,7 +10,7 @@ public class ParkingBoy {
     private List<ParkingLot> parkingLots;
 
     public ParkingBoy(ParkingLot parkingLot) {
-        this.parkingLots = new ArrayList<> ();
+        this.parkingLots = new ArrayList<>();
         parkingLots.add(parkingLot);
     }
 
