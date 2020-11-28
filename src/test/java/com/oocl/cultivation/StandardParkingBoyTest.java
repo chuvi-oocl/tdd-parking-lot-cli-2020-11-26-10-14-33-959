@@ -94,4 +94,22 @@ class StandardParkingBoyTest {
         //then
         assertEquals(car, actual);
     }
+    //Skipped testing parking in 1st parking lot as implemented in previous test
+    @Test
+    void should_call_2nd_parking_lot_fetch_function_when_fetch_car_given_multiple_parking_lots_with_parking_ticket_that_parked_the_car_at_2nd_lot() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> parkingLots= new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        ParkingLot secondParkingLot = Mockito.mock(ParkingLot.class);
+        parkingLots.add(secondParkingLot);
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        Car car1 = new Car();
+        Car car2 = new Car();
+        parkingBoy.park(car1);
+        final Ticket ticket = parkingBoy.park(car2);
+        //when
+        parkingBoy.fetch(ticket);
+        //then
+        verify(secondParkingLot, times(1)).fetch(ticket);
+    }
 }
