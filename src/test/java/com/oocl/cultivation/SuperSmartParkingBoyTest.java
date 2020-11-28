@@ -26,4 +26,7 @@ public class SuperSmartParkingBoyTest {
         assertNotNull(ticket1);
         assertNotNull(ticket2);
     }
+
+    //Skipped test, same as standard parking boy
+    //- parking in first lot
 }
