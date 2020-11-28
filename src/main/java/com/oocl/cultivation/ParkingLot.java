@@ -32,6 +32,8 @@ public class ParkingLot {
         return fetchingCar;
     }
 
+    public boolean isAbleParking() {return capacity > parkingCar.size();}
+
     public int availableSpace() {
         return (capacity - parkingCar.size());
     }

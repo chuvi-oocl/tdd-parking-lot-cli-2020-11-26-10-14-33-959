@@ -41,4 +41,8 @@ public class ParkingBoy {
     public List<ParkingLot> getParkingLots() {
         return this.parkingLots;
     }
+
+    protected boolean isAbleParking() {
+        return this.parkingLots.stream().anyMatch(ParkingLot::isAbleParking);
+    }
 }

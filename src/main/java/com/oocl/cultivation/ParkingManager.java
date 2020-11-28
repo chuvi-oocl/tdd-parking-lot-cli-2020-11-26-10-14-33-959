@@ -13,11 +13,12 @@ public class ParkingManager extends ParkingBoy {
     }
 
     @Override
-    public Ticket park(Car car) throws NotEnoughPositionException{
+    public Ticket park(Car car) throws NotEnoughPositionException {
         try {
             return super.park(car);
         } catch (NotEnoughPositionException e) {
-            return parkingBoys.get(0).park(car);
+            ParkingBoy parkedBy = this.parkingBoys.stream().filter(ParkingBoy::isAbleParking).findFirst().orElse(null);
+            return parkedBy.park(car);
         }
     }
 }
