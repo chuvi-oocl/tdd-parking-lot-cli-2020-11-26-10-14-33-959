@@ -112,4 +112,20 @@ class StandardParkingBoyTest {
         //then
         verify(secondParkingLot, times(1)).fetch(ticket);
     }
+
+    @Test
+    void should_give_UnrecognizedTicketException_when_fetch_the_car_given_multiple_lots_fake_parking_ticket() {
+        //given
+        List<ParkingLot> parkingLots= new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingLots);
+        final Ticket ticket = new Ticket();
+        //when
+        final UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class,
+                () -> parkingBoy.fetch(ticket)
+        );
+        //then
+        assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
+    }
 }
