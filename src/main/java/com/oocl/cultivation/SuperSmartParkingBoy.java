@@ -2,11 +2,8 @@ package com.oocl.cultivation;
 
 import java.util.List;
 
-public class SuperSmartParkingBoy {
+public class SuperSmartParkingBoy extends ParkingBoy{
     public SuperSmartParkingBoy(List<ParkingLot> parkingLots) {
-    }
-
-    public Ticket park(Car car) {
-        return null;
+        super(parkingLots);
     }
 }
