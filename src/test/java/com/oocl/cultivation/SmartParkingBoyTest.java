@@ -79,11 +79,12 @@ public class SmartParkingBoyTest {
         assertNotNull(ticket2);
         assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
     }
+
     //Skipped checking if fetching from which parking lot, as checked where the car parked
     @Test
     void should_return_car_when_fetch_car_given_multiple_parking_lots_with_parked_in_not_first_lot() throws NotEnoughPositionException, UnrecognizedTicketException {
         //given
-        List<ParkingLot> parkingLots= new ArrayList<>();
+        List<ParkingLot> parkingLots = new ArrayList<>();
         parkingLots.add(new ParkingLot(1));
         ParkingLot secondParkingLot = new ParkingLot(1);
         parkingLots.add(secondParkingLot);
@@ -95,5 +96,22 @@ public class SmartParkingBoyTest {
         Car actual = smartParkingBoy.fetch(ticket);
         //then
         assertEquals(car, actual);
+    }
+
+    @Test
+    void should_return_unrecognized_ticket_exception_when_fetch_car_given_multiple_parking_lots_with_fake_ticket() {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(new ParkingLot(1));
+        SmartParkingBoy smartParkingBoy = new SmartParkingBoy(parkingLots);
+
+        final Ticket ticket = new Ticket();
+        //when
+        final UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class,
+                () -> smartParkingBoy.fetch(ticket)
+        );
+        //then
+        assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
     }
 }
