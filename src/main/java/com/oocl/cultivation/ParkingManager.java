@@ -4,6 +4,7 @@ import com.oocl.parkingLotException.NotEnoughPositionException;
 import com.oocl.parkingLotException.UnrecognizedTicketException;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ParkingManager extends ParkingBoy {
     private List<ParkingBoy> parkingBoys;
@@ -27,11 +28,19 @@ public class ParkingManager extends ParkingBoy {
     }
 
     @Override
-    public Car fetch(Ticket ticket) throws UnrecognizedTicketException {
+    public Car fetch(Ticket ticket){
         try {
             return super.fetch(ticket);
         } catch (UnrecognizedTicketException e) {
-            return this.parkingBoys.get(0).fetch(ticket);
+            AtomicReference<Car> car = new AtomicReference<>();
+            this.parkingBoys.forEach(parkingBoy ->{
+                try{
+                    car.set(parkingBoy.fetch(ticket));
+                } catch (UnrecognizedTicketException ignored) {
+
+                }
+            });
+            return car.get();
         }
     }
 }
