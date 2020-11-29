@@ -1,6 +1,7 @@
 package com.oocl.cultivation;
 
 import com.oocl.parkingLotException.NotEnoughPositionException;
+import com.oocl.parkingLotException.UnrecognizedTicketException;
 
 import java.util.List;
 
@@ -22,6 +23,15 @@ public class ParkingManager extends ParkingBoy {
                 throw new NotEnoughPositionException("Not Enough Position");
             }
             return parkedBy.park(car);
+        }
+    }
+
+    @Override
+    public Car fetch(Ticket ticket) throws UnrecognizedTicketException {
+        try {
+            return super.fetch(ticket);
+        } catch (UnrecognizedTicketException e) {
+            return this.parkingBoys.get(0).fetch(ticket);
         }
     }
 }
