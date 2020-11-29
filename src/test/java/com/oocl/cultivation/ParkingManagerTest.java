@@ -7,8 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ParkingManagerTest {
     @Test
@@ -75,4 +74,35 @@ public class ParkingManagerTest {
     }
 
     //Skipped testing parking manager throw error, duplicated with general parking boy
+
+    @Test
+    void should_return_NotEnoughPositionException_function_park_car_given_multiple_parking_lots_multiple_parking_boys_with_no_free_space() throws NotEnoughPositionException {
+        //given
+        List<ParkingLot> managerParkingLots = new ArrayList<>();
+        managerParkingLots.add(new ParkingLot(1));
+
+        List<ParkingLot> parkingBoyParkingLots = new ArrayList<>();
+        parkingBoyParkingLots.add(new ParkingLot(1));
+
+
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(new ParkingBoy(parkingBoyParkingLots));
+
+        ParkingManager parkingManager = new ParkingManager(managerParkingLots, parkingBoys);
+
+        Car car1 = new Car();
+        Car car2 = new Car();
+        Car car3 = new Car();
+        //when
+
+        final Ticket ticket1 = parkingManager.park(car1);
+        final Ticket ticket2 = parkingManager.park(car2);
+        final NotEnoughPositionException notEnoughPositionException = assertThrows(NotEnoughPositionException.class,
+                () -> parkingManager.park(car3)
+        );
+        //then
+        assertNotNull(ticket1);
+        assertNotNull(ticket2);
+        assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
+    }
 }
