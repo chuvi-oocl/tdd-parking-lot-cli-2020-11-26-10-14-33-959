@@ -73,4 +73,6 @@ public class ParkingManagerTest {
         //then
         assertEquals(car, actual);
     }
+
+    //Skipped testing parking manager throw error, duplicated with general parking boy
 }
