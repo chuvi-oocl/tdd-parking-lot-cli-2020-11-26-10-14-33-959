@@ -205,4 +205,23 @@ public class ParkingManagerTest {
         //then
         assertEquals(car, actual);
     }
+
+
+    @Test
+    void should_return_unrecognized_ticket_exception_when_fetch_car_given_multiple_parking_lots_boys_with_fake_ticket() {
+        //given
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+        parkingBoys.add(new ParkingBoy(new ArrayList<>()));
+        parkingBoys.add(new ParkingBoy(new ArrayList<>()));
+
+        ParkingManager parkingManager = new ParkingManager(new ArrayList<>(), parkingBoys);
+
+        final Ticket ticket = new Ticket();
+        //when
+        final UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class,
+                () -> parkingManager.fetch(ticket)
+        );
+        //then
+        assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
+    }
 }
