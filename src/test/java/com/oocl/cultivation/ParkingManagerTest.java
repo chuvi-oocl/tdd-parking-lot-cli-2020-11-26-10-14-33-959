@@ -147,4 +147,22 @@ public class ParkingManagerTest {
         //then
         assertNotNull(ticket);
     }
+
+    @Test
+    void should_return_car_when_fetch_car_given_multiple_parking_lots_parked_at_manager() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingLot> parkingLots = new ArrayList<>();
+        parkingLots.add(new ParkingLot(1));
+        parkingLots.add(new ParkingLot(1));
+
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+
+        ParkingManager parkingManager = new ParkingManager(parkingLots, parkingBoys);
+        Car car = new Car();
+        final Ticket ticket = parkingManager.park(car);
+        //when
+        Car actual = parkingManager.fetch(ticket);
+        //then
+        assertEquals(car, actual);
+    }
 }
