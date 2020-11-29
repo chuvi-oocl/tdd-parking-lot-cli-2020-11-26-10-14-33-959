@@ -224,4 +224,29 @@ public class ParkingManagerTest {
         //then
         assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
     }
+
+
+    @Test
+    void should_return_unrecognized_ticket_exception_when_fetch_car_given_multiple_parking_lots_parked_at_boys_with_used_ticket() throws NotEnoughPositionException, UnrecognizedTicketException {
+        //given
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+
+        List<ParkingLot> parkingBoyParkingLot = new ArrayList<>();
+        parkingBoyParkingLot.add(new ParkingLot(1));
+        ParkingBoy parkingBoy = new ParkingBoy(parkingBoyParkingLot);
+        parkingBoys.add(parkingBoy);
+        parkingBoys.add(new ParkingBoy(new ArrayList<>()));
+
+        ParkingManager parkingManager = new ParkingManager(new ArrayList<>(), parkingBoys);
+
+        Car car = new Car();
+        Ticket ticket = parkingBoy.park(car);
+        parkingBoy.fetch(ticket);
+        //when
+        final UnrecognizedTicketException unrecognizedTicketException = assertThrows(UnrecognizedTicketException.class,
+                () -> parkingManager.fetch(ticket)
+        );
+        //then
+        assertEquals("Unrecognized parking ticket", unrecognizedTicketException.getMessage());
+    }
 }
