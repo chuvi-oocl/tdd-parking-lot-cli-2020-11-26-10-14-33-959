@@ -18,6 +18,9 @@ public class ParkingManager extends ParkingBoy {
             return super.park(car);
         } catch (NotEnoughPositionException e) {
             ParkingBoy parkedBy = this.parkingBoys.stream().filter(ParkingBoy::isAbleParking).findFirst().orElse(null);
+            if (parkedBy == null) {
+                throw new NotEnoughPositionException("Not Enough Position");
+            }
             return parkedBy.park(car);
         }
     }
