@@ -28,7 +28,7 @@ public class ParkingManager extends ParkingBoy {
     }
 
     @Override
-    public Car fetch(Ticket ticket){
+    public Car fetch(Ticket ticket) throws UnrecognizedTicketException {
         try {
             return super.fetch(ticket);
         } catch (UnrecognizedTicketException e) {
@@ -40,6 +40,10 @@ public class ParkingManager extends ParkingBoy {
 
                 }
             });
+
+            if(car.get() == null){
+                throw new UnrecognizedTicketException("Unrecognized parking ticket");
+            }
             return car.get();
         }
     }
