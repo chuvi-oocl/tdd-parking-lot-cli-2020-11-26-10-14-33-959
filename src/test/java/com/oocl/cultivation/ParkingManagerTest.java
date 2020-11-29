@@ -105,4 +105,25 @@ public class ParkingManagerTest {
         assertNotNull(ticket2);
         assertEquals("Not Enough Position", notEnoughPositionException.getMessage());
     }
+
+
+    @Test
+    void should_return_ticket_when_park_car_given_manager_have_no_free_space_have_smart_parking_boy_with_free_space() throws NotEnoughPositionException {
+        //given
+        List<ParkingLot> managerParkingLots = new ArrayList<>();
+        List<ParkingLot> parkingBoyParkingLots = new ArrayList<>();
+        parkingBoyParkingLots.add(new ParkingLot(1));
+
+        List<ParkingBoy> parkingBoys = new ArrayList<>();
+        SmartParkingBoy parkingBoy = new SmartParkingBoy(parkingBoyParkingLots);
+        parkingBoys.add(parkingBoy);
+
+        ParkingManager parkingManager = new ParkingManager(managerParkingLots, parkingBoys);
+
+        Car car = new Car();
+        //when
+        final Ticket ticket = parkingManager.park(car);
+        //then
+        assertNotNull(ticket);
+    }
 }
